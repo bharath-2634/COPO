@@ -1,0 +1,3 @@
+{
+    "connectionString": "mongodb+srv://testUser:testUser2634@copo-mapping.covfl.mongodb.net/?retryWrites=true&w=majority&appName=copo-mapping"
+}
