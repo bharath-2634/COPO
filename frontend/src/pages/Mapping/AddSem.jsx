@@ -22,7 +22,7 @@ const AddSem = () => {
     const [subjects,setSubjects] = useState([]);
     const [openSub,setOpenSub] = useState(false);
 
-    const [cono,setCono] = useState("");
+    const [coNo,setCoNo] = useState("");
     const [courseCode,setCourseCode] = useState("");
     const [courseName,setCourseName] = useState("");
     const [staffName,setStaffName] = useState("");
@@ -47,7 +47,7 @@ const AddSem = () => {
     const AddSubject = (e) => {
         e.preventDefault();
 
-        if(cono=="") {
+        if(coNo=="") {
             setError("Enter Course Number");
             return;
         }
@@ -67,7 +67,7 @@ const AddSem = () => {
         setError("");
 
         const subject = {
-            cono,
+            coNo,
             courseCode,
             courseName,
             staffName,
@@ -80,7 +80,7 @@ const AddSem = () => {
         };
 
         setSubjects([...subjects,subject]);
-        setCono("");
+        setCoNo("");
         setCategory("");
         setStatus("");
         setCourseCode("");
@@ -193,7 +193,7 @@ const AddSem = () => {
                         <form className='mt-0'>
                             <div className='flex flex-col gap-1 mt-1'>
                                 <h3 className='text-sm text-slate-400 font-medium'>CO.NO</h3>
-                                <input type="text" className='block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm/6' value={cono} onChange={(e)=>{setCono(e.target.value)}} placeholder="eg c101"/>
+                                <input type="text" className='block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm/6' value={coNo} onChange={(e)=>{setCoNo(e.target.value)}} placeholder="eg c101"/>
                             </div>
                             <div className='flex flex-col gap-1 mt-3'>
                                 <h3 className='text-sm text-slate-400 font-medium'>course code</h3>
@@ -280,10 +280,10 @@ const AddSem = () => {
                     </thead>
                     <tbody className="text-gray-600">
                         {
-                            subjects.map(({cono,courseCode,courseName,staffName,status,category,L,T,P,C})=>{
+                            subjects.map(({coNo,courseCode,courseName,staffName,status,category,L,T,P,C})=>{
                                 return (
                                     <tr className="hover:bg-gray-100 border-b border-gray-200">
-                                        <td className="w-1/4 px-6 py-4">{cono}</td>
+                                        <td className="w-1/4 px-6 py-4">{coNo}</td>
                                         <td className="w-1/4 px-6 py-4">{courseCode}</td>
                                         <td className="w-1/4 px-6 py-4">{courseName}</td>
                                         <td className="w-1/4 px-6 py-4">{staffName}</td>

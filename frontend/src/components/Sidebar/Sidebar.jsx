@@ -14,6 +14,9 @@ const Sidebar = () => {
             <div className='w-full text-start bg-slate-50 p-3'>
                 <Link to="overview" className='text-md font-medium'>Overview</Link>
             </div>
+            <div className='w-full text-start bg-slate-50 p-3'>
+                <Link to="mapping" className='text-md font-medium'>Mapping</Link>
+            </div>
         </div>
 
         <div className='border-t-2 w-full flex items-center text-center justify-center pt-3 '>

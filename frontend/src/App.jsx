@@ -5,6 +5,8 @@ import SignUp from "./pages/SignUp/SignUp";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Overview from "./pages/Mapping/Overview";
 import AddSem from "./pages/Mapping/AddSem";
+import Mapping from "./pages/Mapping/Mapping";
+import AddSubject from "./pages/Mapping/AddSubject";
 
 
 
@@ -16,6 +18,8 @@ const routes = (
       <Route path="/dashboard" exact element={<Dashboard/>}>
         <Route path="overview" exact element={<Overview/>}/>
         <Route path="addSem" exact element={<AddSem/>}/>
+        <Route path="mapping" exact element={<Mapping/>}/>
+        <Route path="addSubject" exact element={<AddSubject/>}/>
       </Route> 
     </Routes>
   </Router>
