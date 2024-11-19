@@ -70,8 +70,10 @@ const Overview = () => {
 
     useEffect(() => {
         if (batchId) {
+            setBatchData([]);
             getSemesterData();
         }
+
     }, [batchId]);
 
 

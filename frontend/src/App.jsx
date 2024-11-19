@@ -7,6 +7,8 @@ import Overview from "./pages/Mapping/Overview";
 import AddSem from "./pages/Mapping/AddSem";
 import Mapping from "./pages/Mapping/Mapping";
 import AddSubject from "./pages/Mapping/AddSubject";
+import Attainment from "./pages/Attainment/Attainment";
+import DataEntry from "./pages/Attainment/DataEntry";
 
 
 
@@ -20,7 +22,10 @@ const routes = (
         <Route path="addSem" exact element={<AddSem/>}/>
         <Route path="mapping" exact element={<Mapping/>}/>
         <Route path="addSubject" exact element={<AddSubject/>}/>
+        <Route path="Attainment" exact element={<Attainment/>}/>
+        <Route path="dataEntry" exact element={<DataEntry/>}/>
       </Route> 
+
     </Routes>
   </Router>
 );

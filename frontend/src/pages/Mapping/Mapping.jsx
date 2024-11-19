@@ -12,7 +12,8 @@ const Mapping = () => {
 
     console.log("batch Id from mapping page : "+batchId);
 
-    
+
+
     const getAllSubjects = async()=>{
         try {
             const token = localStorage.getItem("token"); 
@@ -24,18 +25,18 @@ const Mapping = () => {
                 },
             });
             console.log("Batch Data client side :", JSON.stringify(allBatch, null, 2));
-
-
-
             if(response.data && response.data.subjectData){
                 const subjectsData = response.data.subjectData.flatMap(batch => batch.subjects);
                 setAllBatch(subjectsData);
                 console.log("Subjects Data array from client model : "+JSON.stringify(subjectsData, null, 2));
             }
         }catch(error) {
+
             console.log("An Unexpected Error from client side : "+error);
         }
     }
+
+    
 
 
     const [subjects,setAllSubjects] = useState([]);
@@ -53,10 +54,10 @@ const Mapping = () => {
     
     },[]);
 
-    useEffect(()=>{
 
+    useEffect(()=>{
         getSubjects()
-    },[]);
+    },[subjectId]);
 
     // console.log("from courseName method : "+JSON.stringify(subjects, null, 2))
     const [subjectData,setSubjectData] = useState([]);
