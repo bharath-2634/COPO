@@ -72,9 +72,17 @@ const Overview = () => {
     getAllBatch();
   }, []);
 
+  // useEffect(() => {
+  //   if (batchId) {
+  //     getSemesterData();
+  //   }
+  // }, [batchId]);
+
   useEffect(() => {
     if (batchId) {
       getSemesterData();
+    } else {
+      console.log("No batch selected");
     }
   }, [batchId]);
 
