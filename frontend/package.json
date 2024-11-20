@@ -13,6 +13,10 @@
     "@syncfusion/ej2-react-spreadsheet": "^27.2.2",
     "axios": "^1.7.7",
     "exceljs": "^4.4.0",
+<<<<<<< HEAD
+=======
+    "file-saver": "^2.0.5",
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",

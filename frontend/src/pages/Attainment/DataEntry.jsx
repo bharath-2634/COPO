@@ -9,9 +9,17 @@ import { MdClose } from "react-icons/md";
 import { IoIosAdd } from "react-icons/io";
 import { IoIosAddCircle } from "react-icons/io";
 import ExcelJS from "exceljs";
+<<<<<<< HEAD
 // import { saveAs } from "file-saver";
 
 const DataEntry = () => {
+=======
+import { saveAs } from "file-saver";
+
+const DataEntry = () => {
+  
+
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
   const [allBatches, setAllBatches] = useState([]);
   const [batchId, setBatchId] = useState("");
 
@@ -40,7 +48,11 @@ const DataEntry = () => {
       const token = localStorage.getItem("token");
       console.log("token from client Side : " + token);
       console.log("batchId from client Side : " + batchId);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
       const response = await axiosInstance.get("/get-allSubjects/" + batchId, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -73,6 +85,7 @@ const DataEntry = () => {
     const cono = allBatch.map((subject) => subject.coNo);
     setCourseNumber(cono);
     setAllSubjects(names);
+
   };
 
   useEffect(() => {
@@ -111,6 +124,12 @@ const DataEntry = () => {
   //   XLSX.writeFile(workbook, "GeneratedExcel.xlsx");
   // };
 
+<<<<<<< HEAD
+=======
+
+  
+
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
   // Handleing uploading Excel Sheet Concept
   const handleUpload = () => {
     setOpenUpload(false);
@@ -119,14 +138,122 @@ const DataEntry = () => {
 
   // Handling Generate Excel Sheet concept
 
+<<<<<<< HEAD
   const [generatemodel, setgeneratemodel] = useState(false);
 
   const [headers, setHeaders] = useState([]);
+=======
+  const [selectedCO, setSelectedCO] = useState("");
+  const [marks, setMarks] = useState(0);
+  const [percentage, setPercentage] = useState(0);
+  const [checkboxes, setCheckboxes] = useState({
+    L1: { checked: false, mark: "" },
+    L2: { checked: false, mark: "" },
+    L3: { checked: false, mark: "" },
+    L4: { checked: false, mark: "" },
+    L5: { checked: false, mark: "" },
+    L6: { checked: false, mark: "" },
+  });
+
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setCheckboxes((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...prevState[name],
+        checked,
+      },
+    }));
+  };
+
+  const handleMarkChange = (e) => {
+    const { name, value } = e.target;
+    setCheckboxes((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...prevState[name],
+        mark: value,
+      },
+    }));
+  };
+
+
+  const [generatemodel, setgeneratemodel] = useState(false);
+
+  const [headers,setHeaders] = useState([]);
+  const handleNextColumn = (e) => {
+      e.preventDefault();
+      const data = {
+        CO : selectedCO,
+        marks,
+        percentage,
+        checkboxes
+      }
+
+      setHeaders((prevHeaders) => {
+        const updatedHeaders = [...prevHeaders, data];
+        console.log("Updated headers after adding new data:", updatedHeaders);
+        return updatedHeaders;
+      });
+      setSelectedCO("");
+      setMarks(0);
+      setPercentage(0);
+      setCheckboxes({
+        L1: { checked: false, mark: "" },
+        L2: { checked: false, mark: "" },
+        L3: { checked: false, mark: "" },
+        L4: { checked: false, mark: "" },
+        L5: { checked: false, mark: "" },
+        L6: { checked: false, mark: "" },
+      });
+
+      setTimeout(() => {
+        console.log("Excel Headers will be: ", headers);
+      }, 0);
+
+  }
+
+  const [assignmentCo,setAssignmentCo] = useState("");
+  const [assignmentMarks,setAssignmentMarks] = useState(0);
+  const [assignmentPercentage,setAssignmentPercentage] = useState(0);
+  const [assignmentLevels,setAssignmentLevels] = useState({
+    L1: { checked: false, mark: "" },
+    L2: { checked: false, mark: "" },
+    L3: { checked: false, mark: "" },
+    L4: { checked: false, mark: "" },
+    L5: { checked: false, mark: "" },
+    L6: { checked: false, mark: "" },
+  });
+
+  const handleAssignmentCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setAssignmentLevels((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...prevState[name],
+        checked,
+      },
+    }));
+  };
+
+  const handleAssignmentMarkChange = (e) => {
+    const { name, value } = e.target;
+    setAssignmentLevels((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...prevState[name],
+        mark: value,
+      },
+    }));
+  };
+
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
 
   const generateSheet = (e) => {
     e.preventDefault();
     const mainHeader = ["S.NO", "REGISTER NUMBER", "STUDENT"];
 
+<<<<<<< HEAD
     console.log("Excel Data Strcuture : " + JSON.stringify(headers, null, 2));
     headers.map((object, idx) => {
       mainHeader.push(object.CO);
@@ -151,6 +278,33 @@ const DataEntry = () => {
     mainHeader.push("Marks out of 100");
 
     console.log("final Main Header of Excel Sheet : " + mainHeader);
+=======
+    console.log("Excel Data Strcuture : "+JSON.stringify(headers,null,2));
+    headers.map((object,idx)=> {
+      mainHeader.push(object.CO);
+      const selectedLevels = Object.entries(object.checkboxes).filter(([key, value]) => value.checked).map(([key]) => key);
+      selectedLevels.forEach((level)=> {
+        mainHeader.push(level);
+      })
+      // working good
+      // console.log(`Main Header : ${mainHeader}`)
+    })
+
+    mainHeader.push("Marks (out of 100) ");
+    const selectedAssignmentLevels = Object.entries(assignmentLevels).filter(([key, value]) => value.checked).map(([key]) => key);
+    selectedAssignmentLevels.forEach((level)=>{
+      mainHeader.push(level);
+    })
+    mainHeader.push(assignmentCo);
+    mainHeader.push("Marks out of 100");
+
+    console.log("final Main Header of Excel Sheet : "+mainHeader);
+
+  
+
+
+
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
 
     const workbook = new ExcelJS.Workbook();
     const sheet = workbook.addWorksheet("Static Headers Data");
@@ -166,6 +320,7 @@ const DataEntry = () => {
       const row = sheet.getRow(rowIndex + 1);
       row.getCell(1).value = rowIndex;
       row.getCell(4).value = "";
+<<<<<<< HEAD
       row.getCell(9).value = "";
       const [colIdx, setColIdx] = useState(5);
       const [rowIdx, setRowIdx] = useState(0);
@@ -187,10 +342,28 @@ const DataEntry = () => {
         });
         setColIdx((idx) => idx + 1);
       });
+=======
+      row.getCell(9).value = ""; 
+      const [colIdx,setColIdx] = useState(5);
+      const [rowIdx,setRowIdx] = useState(0);
+      const columns = ["E","F","G","H","J","K","L","M"];
+
+      headers.map((object,idx)=>{
+        const maxCo=object.marks;
+        const selectedLevels = Object.entries(object.checkboxes).filter(([level, { checked }]) => checked).map(([level, { mark }]) => mark);
+        selectedLevels.forEach((val)=> {
+          row.getCell(colIdx).value = { formula: `ROUND(${columns[rowIdx]}${rowIndex + 1} * ${val / maxCo}, 0)` };
+          setColIdx((idx)=>idx+1);
+          setRowIdx((idx)=>idx+1);
+        })
+        setColIdx((idx)=>idx+1);
+      })
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
       // row.getCell(5).value = { formula: `ROUND(E${rowIndex + 1} * ${levelMarks.CO1.L1 / maxCO1}, 0)` };
       // row.getCell(6).value = { formula: `ROUND(H${rowIndex + 1} * ${levelMarks.CO1.L2 / maxCO1}, 0)` };
       // row.getCell(7).value = { formula: `ROUND(H${rowIndex + 1} * ${levelMarks.CO1.L3 / maxCO1}, 0)` };
       // row.getCell(8).value = { formula: `H${rowIndex + 1} - (D${rowIndex + 1} + E${rowIndex + 1} + F${rowIndex + 1})` };
+<<<<<<< HEAD
     }
 
     setgeneratemodel(false);
@@ -221,6 +394,19 @@ const DataEntry = () => {
     setassSelectedCO("");
     setassMarks("");
   };
+=======
+
+    }
+
+
+
+
+    setgeneratemodel(false);
+
+  }
+
+  
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
 
   return (
     <>
@@ -249,6 +435,7 @@ const DataEntry = () => {
             onChange={(e) => {
               setSubjectId(e.target.value);
             }}
+
           >
             {subjects.map((subject, idx) => {
               return <option value={idx}>{subject}</option>;
@@ -332,7 +519,7 @@ const DataEntry = () => {
         </button>
       </div>
       <div>
-        {generatemodel && (
+        { generatemodel && (
           <Modal
             isOpen={generatemodel}
             onRequestClose={() => setgeneratemodel(false)}
@@ -342,20 +529,22 @@ const DataEntry = () => {
                 backgroundColor: "rgba(0,0,0,.2)",
               },
             }}
+<<<<<<< HEAD
             className="w-[65%] max-h-2/4 bg-white  rounded-md mx-auto mt-1 p-5"
+=======
+            className="w-[65%] max-h-2/4 bg-white rounded-md mx-auto mt-1 p-5"
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
           >
             <div className="flex flex-col p-1 gap-3">
               <div className="w-full flex items-center justify-between">
                 <h2>Enter Data</h2>
-                <button
-                  className="w-10 h-10 rounded-full flex items-center justify-center -mt-2 hover:bg-slate-50"
-                  onClick={() => setgeneratemodel(false)}
-                >
+                <button className="w-10 h-10 rounded-full flex items-center justify-center -mt-2 hover:bg-slate-50" onClick={() => setgeneratemodel(false)}>
                   <MdClose className="text-xl text-slate-400" />
                 </button>
               </div>
 
               <form className="mt-2">
+<<<<<<< HEAD
                 {/* Input Form Box */}
                 <div className="flex flex-col w-full items-center justify-center gap-4">
                   <div className="flex items-center justify-start w-full gap-12">
@@ -363,6 +552,13 @@ const DataEntry = () => {
                       <h3 className="text-sm text-slate-400 font-medium">
                         CO.NO
                       </h3>
+=======
+                 {/* Input Form Box */}
+                <div className="flex flex-col w-full items-center justify-center gap-4">
+                  <div className="flex items-center justify-between w-full gap-2">
+                    <div className="flex flex-col gap-1 mt-3">
+                      <h3 className="text-sm text-slate-400 font-medium">CO.NO</h3>
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
                       <select
                         className="block rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm/6"
                         value={selectedCO}
@@ -379,9 +575,13 @@ const DataEntry = () => {
                     </div>
 
                     <div className="flex flex-col gap-1 mt-3">
+<<<<<<< HEAD
                       <h3 className="text-sm text-slate-400 font-medium">
                         Marks
                       </h3>
+=======
+                      <h3 className="text-sm text-slate-400 font-medium">Marks</h3>
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
                       <input
                         type="text"
                         className="block rounded-md border-0 py-1 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm/6"
@@ -390,6 +590,7 @@ const DataEntry = () => {
                         placeholder="Enter marks"
                       />
                     </div>
+<<<<<<< HEAD
                     <button
                       className="bg-green-500 p-1 rounded flex items-center justify-center text-white font-medium mt-8 gap-3"
                       onClick={(e) => {
@@ -400,6 +601,129 @@ const DataEntry = () => {
                       <h2>Next column</h2>
                     </button>
                   </div>
+=======
+
+                    <div className="flex flex-col gap-1 mt-3">
+                      <h3 className="text-sm text-slate-400 font-medium">
+                        Percentage
+                      </h3>
+                      <input
+                        type="text"
+                        className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm/6"
+                        value={percentage}
+                        onChange={(e) => setPercentage(e.target.value)}
+                        placeholder="Enter percentage"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-4 mt-3">
+                    {
+                      Object.keys(checkboxes).map((key) => (
+                        <div key={key} className="flex items-center gap-3">
+                          <label className="">
+                            <input
+                              className="mr-1"
+                              type="checkbox"
+                              name={key}
+                              checked={checkboxes[key].checked}
+                              onChange={handleCheckboxChange}
+                            />
+                            {key}
+                          </label>
+                          <input
+                            type="text"
+                            name={key}
+                            value={checkboxes[key].mark}
+                            placeholder="0"
+                            onChange={handleMarkChange}
+                            className="w-16 rounded-md border-0 py-1 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm/6"
+                          />
+                        </div>
+                      ))
+                    }
+                  </div>
+                  
+                </div>
+                <div className="w-full flex items-center justify-end ">
+                  <button className="bg-green-500 p-3 rounded flex items-center justify-center text-white font-medium mt-3 gap-3" onClick={(e)=>{handleNextColumn(e)}}>
+                      <IoIosAddCircle />
+                      <h2>Next column</h2>
+                  </button>
+                </div>
+                <hr className="mt-5 font-medium"/>
+                <div className="flex w-full flex-col items-start justify-center mt-3 gap-3">
+                  <h2 className="">Assignment Entry</h2>
+                  <div className="flex items-center justify-between w-full gap-2">
+                    <div className="flex flex-col gap-1 mt-3">
+                      <h3 className="text-sm text-slate-400 font-medium">CO.NO</h3>
+                      <select
+                        className="block rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm/6"
+                        value={assignmentCo}
+                        onChange={(e) => setAssignmentCo(e.target.value)}
+                      >
+                        <option value="">Select CO</option>
+                        <option value="CO1">CO1</option>
+                        <option value="CO2">CO2</option>
+                        <option value="CO3">CO3</option>
+                        <option value="CO4">CO4</option>
+                        <option value="CO5">CO5</option>
+                        <option value="CO6">CO6</option>
+                      </select>
+                    </div>
+
+                    <div className="flex flex-col gap-1 mt-3">
+                      <h3 className="text-sm text-slate-400 font-medium">Marks</h3>
+                      <input
+                        type="text"
+                        className="block rounded-md border-0 py-1 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm/6"
+                        value={assignmentMarks}
+                        onChange={(e) => setAssignmentMarks(e.target.value)}
+                        placeholder="Enter marks"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1 mt-3">
+                      <h3 className="text-sm text-slate-400 font-medium">
+                        Percentage
+                      </h3>
+                      <input
+                        type="text"
+                        className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm/6"
+                        value={assignmentPercentage}
+                        onChange={(e) => setAssignmentPercentage(e.target.value)}
+                        placeholder="Enter percentage"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-4 mt-3">
+                    {
+                      Object.keys(checkboxes).map((key) => (
+                        <div key={key} className="flex items-center gap-3">
+                          <label className="">
+                            <input
+                              className="mr-1"
+                              type="checkbox"
+                              name={key}
+                              checked={assignmentLevels[key].checked}
+                              onChange={handleAssignmentCheckboxChange}
+                            />
+                            {key}
+                          </label>
+                          <input
+                            type="text"
+                            name={key}
+                            value={assignmentLevels[key].mark}
+                            placeholder="0"
+                            onChange={handleAssignmentMarkChange}
+                            className="w-16 rounded-md border-0 py-1 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm/6"
+                          />
+                        </div>
+                      ))
+                    }
+                  </div>
+
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
                 </div>
                 {/* <div className="w-full flex items-center justify-end ">
                  
@@ -427,6 +751,7 @@ const DataEntry = () => {
                       </select>
                     </div>
 
+<<<<<<< HEAD
                     <div className="flex flex-col gap-1 mt-3">
                       <h3 className="text-sm text-slate-400 font-medium">
                         Marks
@@ -449,6 +774,12 @@ const DataEntry = () => {
                       <h2>Next column</h2>
                     </button>
                   </div>
+=======
+                <div className="mt-6 w-full flex gap-16 items-center justify-around rounded text-white">
+                  <button className="bg-green-500 p-2 rounded" onClick={(e)=>{generateSheet(e)}}>
+                    <h2>Generate Sheet</h2>
+                  </button>
+>>>>>>> de46ed765411fa54afc668ff2fa4127a062152fe
                 </div>
               </form>
             </div>
